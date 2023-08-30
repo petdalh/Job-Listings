@@ -1,6 +1,10 @@
 from bs4 import BeautifulSoup
 import requests
-from db_operations import insert_job
+from db_operations import insert_job, delete_all_records
+from db_setup import setup_database
+
+# Set up the database
+setup_database()
 
 
 base_url = "https://www.teknologiporten.no"
@@ -42,12 +46,7 @@ for job_div in job_listings:
     if logo_img:
         logo_url = logo_img['src']
     
-    # print(f"Job URL: {job_url}")
-    # print(f"Job Type: {job_type}")
-    # print(f"Job Title: {job_title}")
-    # print(f"Application Deadline: {app_deadline}")
-    # print(f"Company Logo URL: {logo_url}")
-    # print("------")
+    # Insert the scraped data into the database
+    insert_job(job_url, job_type, job_title, app_deadline, logo_url, "Teknologiporten")
 
 
-insert_job("https://example.com/job1", "Full-time", "Software Engineer", "2023-09-30", "https://example.com/logo1.png")
