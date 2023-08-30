@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
+from db_operations import insert_job
+
 
 base_url = "https://www.teknologiporten.no"
 url = f"{base_url}/nb/stillingsannonser/"
@@ -40,9 +42,12 @@ for job_div in job_listings:
     if logo_img:
         logo_url = logo_img['src']
     
-    print(f"Job URL: {job_url}")
-    print(f"Job Type: {job_type}")
-    print(f"Job Title: {job_title}")
-    print(f"Application Deadline: {app_deadline}")
-    print(f"Company Logo URL: {logo_url}")
-    print("------")
+    # print(f"Job URL: {job_url}")
+    # print(f"Job Type: {job_type}")
+    # print(f"Job Title: {job_title}")
+    # print(f"Application Deadline: {app_deadline}")
+    # print(f"Company Logo URL: {logo_url}")
+    # print("------")
+
+
+insert_job("https://example.com/job1", "Full-time", "Software Engineer", "2023-09-30", "https://example.com/logo1.png")
