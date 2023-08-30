@@ -2,10 +2,13 @@ import sqlite3
 
 def insert_job(url, job_type, title, deadline, logo_url, source):
     conn = sqlite3.connect('job_listings.db')
-    conn.execute("INSERT OR IGNORE INTO JOBS (URL, TYPE, TITLE, DEADLINE, LOGO_URL, SOURCE) VALUES (?, ?, ?, ?, ?, ?)",
+    cursor = conn.cursor()
+    cursor.execute("INSERT OR IGNORE INTO JOBS (URL, TYPE, TITLE, DEADLINE, LOGO_URL, SOURCE) VALUES (?, ?, ?, ?, ?, ?)",
                  (url, job_type, title, deadline, logo_url, source))
+    is_new_job = cursor.rowcount == 1  # True if a new job is inserted
     conn.commit()
     conn.close()
+    return is_new_job
 
 
 def delete_all_records():

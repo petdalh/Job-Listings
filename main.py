@@ -4,15 +4,16 @@ from db_operations import insert_job, delete_all_records, job_exists
 from db_setup import setup_database
 from sms_operations import send_sms
 
+# delete_all_records()
 
-# Set up the database
 setup_database()
-
 
 base_url = "https://www.teknologiporten.no"
 url = f"{base_url}/nb/stillingsannonser/"
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
+
+new_jobs = []
 
 # Find all job listings
 job_listings = soup.find_all('div', class_='adx_contain')
@@ -49,8 +50,13 @@ for job_div in job_listings:
         logo_url = logo_img['src']
     
     # Insert the scraped data into the database
-    if not job_exists(job_url):
-        insert_job(job_url, job_type, job_title, app_deadline, logo_url, "Teknologiporten")
-        send_sms("New Job Alert", f"New job posted: {job_title}")
+        is_new_job = insert_job(job_url, job_type, job_title, app_deadline, logo_url, "Teknologiporten")
+    
+    # If it's a new job, send an SMS
+    if is_new_job:
+        new_job_info = f"New job found: {job_title} at {job_url}"
+        new_jobs.append(new_job_info)
 
-
+if new_jobs:
+    message = "\n".join(new_jobs)
+    send_sms(message)
