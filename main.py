@@ -1,7 +1,9 @@
 from bs4 import BeautifulSoup
 import requests
-from db_operations import insert_job, delete_all_records
+from db_operations import insert_job, delete_all_records, job_exists
 from db_setup import setup_database
+from sms_operations import send_sms
+
 
 # Set up the database
 setup_database()
@@ -47,6 +49,8 @@ for job_div in job_listings:
         logo_url = logo_img['src']
     
     # Insert the scraped data into the database
-    insert_job(job_url, job_type, job_title, app_deadline, logo_url, "Teknologiporten")
+    if not job_exists(job_url):
+        insert_job(job_url, job_type, job_title, app_deadline, logo_url, "Teknologiporten")
+        send_sms("New Job Alert", f"New job posted: {job_title}")
 
 

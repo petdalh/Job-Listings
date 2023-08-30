@@ -23,6 +23,11 @@ def delete_all_records():
     
     # Close the database connection
     conn.close()
-
-# Call the function to delete all records
-delete_all_records()
+    
+def job_exists(url):
+    conn = sqlite3.connect('job_listings.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT 1 FROM JOBS WHERE URL=?", (url,))
+    exists = cursor.fetchone()
+    conn.close()
+    return exists is not None
