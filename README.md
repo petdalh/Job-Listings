@@ -74,6 +74,3 @@ python main_script.py  # Replace 'main_script.py' with the actual name of your s
 3. If a new job is found, it's added to a list.
 4. After all jobs have been checked, an SMS is sent containing all the new jobs found.
 
-## License
-
-This project is open-source and available under the MIT License.
