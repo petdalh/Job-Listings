@@ -48,9 +48,9 @@ pip install python-dotenv
 
 ### Environment Variables
 
-Create a \.env\ file in the project root directory and add the following content:
+Create a .env file in the project root directory and add the following content:
 
-\\\env
+\\\bash
 TWILIO_ACCOUNT_SID=your_account_sid_here
 TWILIO_AUTH_TOKEN=your_auth_token_here
 TWILIO_PHONE_NUMBER=your_twilio_phone_number_here
