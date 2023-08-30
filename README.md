@@ -48,7 +48,7 @@ pip install python-dotenv
 
 ### Environment Variables
 
-Create a \`.env\` file in the project root directory and add the following content:
+Create a \.env\ file in the project root directory and add the following content:
 
 \\\env
 TWILIO_ACCOUNT_SID=your_account_sid_here
