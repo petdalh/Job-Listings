@@ -24,3 +24,4 @@ def send_sms(message):
 
     print(f"Message sent with SID: {message.sid}")
 
+print("Hello world")
